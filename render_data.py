@@ -146,7 +146,7 @@ def rotateBand2(x, R):
 
 def render_prt_ortho(out_path, folder_name, subject_name, shs, rndr, rndr_uv, im_size, angl_step=4, n_light=1, pitch=[0]):
     cam = Camera(width=im_size, height=im_size)
-    cam.ortho_ratio = 0.4 * (512 / im_size)
+    cam.ortho_ratio = 0.7 * (512 / im_size)
     cam.near = -100
     cam.far = 100
     cam.sanity_check()
@@ -218,7 +218,7 @@ def render_prt_ortho(out_path, folder_name, subject_name, shs, rndr, rndr_uv, im
         for y in tqdm(range(0, 360, angl_step)):
             R = np.matmul(make_rotate(math.radians(p), 0, 0), make_rotate(0, math.radians(y), 0))
             if up_axis == 2:
-                R = np.matmul(R, make_rotate(math.radians(90),0,0))
+                R = np.matmul(R, make_rotate(math.radians(0),-90,0))
 
             rndr.rot_matrix = R
             rndr_uv.rot_matrix = R
