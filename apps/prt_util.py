@@ -85,7 +85,7 @@ def getSHCoeffs(order, phi, theta):
     return np.stack(shs, 1)
 
 def computePRT(mesh_path, n, order):
-    mesh = trimesh.load(mesh_path, force='mesh', process=False)
+    mesh = trimesh.load(mesh_path, process=False)
     vectors_orig, phi, theta = sampleSphericalDirections(n)
     SH_orig = getSHCoeffs(order, phi, theta)
 
@@ -109,7 +109,7 @@ def computePRT(mesh_path, n, order):
         hits = mesh.ray.intersects_any(origins + delta * normals, vectors)
         nohits = np.logical_and(front, np.logical_not(hits))
 
-        PRT = (nohits.astype(np.cfloat) * dots)[:,None] * SH
+        PRT = (nohits.astype(np.float) * dots)[:,None] * SH
         
         if PRT_all is not None:
             PRT_all += (PRT.reshape(-1, n, SH.shape[1]).sum(1))
