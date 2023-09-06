@@ -48,8 +48,15 @@ def main(in_path, out_path):
 			failnames = np.array([fails])
 			np.savetxt('failed_images.txt', failnames, delimiter='\n', fmt="%s")
 
-if __name__ == '__main__':
-	in_path = '/content/penguins/Test'
-	out_path = '/content/penguins/sample_images'
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Your program description here")
 
-	main(in_path, out_path)
+    # Define command line arguments
+    parser.add_argument('--input_path', type=str, default='./Test', help="Path to input file or directory")
+    parser.add_argument('--output_path', type=str, default='./sample_images', help="Path to output file or directory")
+
+    # Parse the command line arguments
+    args = parser.parse_args()
+
+    # Call your function with the provided arguments
+    main(args.input_path, args.output_path)
